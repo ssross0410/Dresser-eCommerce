@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+<div class="page-header">
+  <h1>{{ product.title }}</h1>
+</div>
+
+{% block content %}
+
+
+<div class='row'>
+	<div class='col-sm-4'>
+	{% for img in images %}
+
+		{% if img.featured %}
+		<div class="col-xs-12">
+			<img class='img-responsive' src="{{ MEDIA_URL }}{{ img.image }}" />
+		<hr/>
+		</div>
+		{% endif %}
+			{% endfor %}
+	{% for img in images %}
+		{% if not img.featured %}
+		<div class="col-xs-6">
+	    <a href="#" class="thumbnail">
+	      <img class='img-responsive' src="{{ MEDIA_URL }}{{ img.image }}">
+	    </a>
+	  	</div>
+
+		{% endif %}
+								 
+	{% endfor %}
+	</div>
+	<div class='col-sm-8'>
+		<div class='col-sm-8 pull-left'>
+			 <h1>{{ product.title }} 
+			 </h1>
+		 </div>
+		 <div class='col-sm-4 pull-right'>
+			 	 <form class='form' method='POST' action='{% url "add_to_cart" product.slug %}'> {% csrf_token %}
+			 	 <input class='btn btn-default btn-block' type='submit' value='Add to cart'/>
+			 	<input  class="form-control"  name='qty' type='number' value='1'/>
+			 	
+			 	{% if product.variation_set.all %}
+
+
+			 	{% if product.variation_set.sizes %}
+			 	<select class='form-control' name='size'>
+			 	{% for item in product.variation_set.sizes %}
+			 		<option value='{{ item.title|lower }}'>{{ item.title|capfirst }}</option>
+			 		{% endfor %}
+			 	</select>
+			 	{% endif %}
+
+			 	 {% if product.variation_set.colors %}
+			 	<select class='form-control' name='color'>
+			 	{% for item in product.variation_set.colors %}
+			 		<option value='{{ item.title|lower }}'>{{ item.title|capfirst }}</option>
+			 		{% endfor %}
+			 	</select>
+			 	{% endif %}
+
+
+
+			 	{% endif %}
+
+			 </form>
+	 	</div>
+	 	<div class='col-sm-12'>
+			 <hr/>
+
+			 Price: {{ product.price }} <br/>
+			 Shipping: Free with $25+ purchase.
+			 <hr/>
+	 	</div>
+			 <div class='col-sm-12'>
+			{{ product.description|linebreaks }}
+				</div>
+	</div>
+</div>
+
+{% endblock %}

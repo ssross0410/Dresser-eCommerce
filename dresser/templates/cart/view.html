@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<div class='col-sm-8 col-sm-offset-2'>
+{% if empty %}
+
+<h1 style='text-align:center;'>{{ empty_message }}</h1>
+
+{% else %}
+
+
+<table class='table'>
+<thead>
+<th>Item</th>
+<th>Price</th>
+<th>Qty</th>
+<th></th>
+</thead>
+<tfoot>
+<tr>
+<td></td>
+<td></td>
+<td>Total: {{ cart.total }}</td>
+</tr>
+</tfoot>
+{% for item in cart.cartitem_set.all %}
+
+<tr>
+<td>{{ item.product }} {% if item.variations.all %}<ul>{% for subitem in item.variations.all %}<li>{{ subitem.category|capfirst}} : {{ subitem.title|capfirst }}{% endfor %}</li><ul> {% endif %}</td>
+<td>{{ item.product.price }}</td>
+<td>{{ item.quantity }}</td>
+<td></td>
+<td><a href='{% url "remove_from_cart" item.id %}'>Remove</a></tr>
+{% endfor %}
+
+</table>
+
+<br/>
+<a href='{% url "checkout" %}'>Checkout</a>
+{% endif %}
+</div>
+{% endblock %}
