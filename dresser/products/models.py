@@ -1,6 +1,29 @@
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models.signals import post_save
 # Create your models here.
+
+class Category(models.Model):
+	title = models.CharField(max_length=120, unique=True)
+	description = models.TextField(null=True, blank=True)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+	active = models.BooleanField(default=True)
+
+	def __unicode__(self):
+		return self.title
+
+
+class Brand(models.Model):
+	title = models.CharField(max_length=120, unique=True)
+	description = models.TextField(null=True, blank=True)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+	active = models.BooleanField(default=True)
+
+	def __unicode__(self):
+		return self.title
+
 
 class Product(models.Model):
 	title = models.CharField(max_length=50)
@@ -9,9 +32,14 @@ class Product(models.Model):
 	sale_price = models.DecimalField(decimal_places=2, max_digits=50,\
 												null=True, blank=True)
 	slug = models.SlugField(unique=True)
+	category = models.ForeignKey(Category, null=True, blank=True)
+	brand = models.ForeignKey(Brand, null=True, blank=True)
+
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	active = models.BooleanField(default=True)
+
+	update_defaults = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.title
@@ -36,8 +64,6 @@ class ProductImage(models.Model):
 
 	def __unicode__(self):
 		return self.product.title
-
-
 
 
 class VariationManager(models.Manager):
@@ -71,3 +97,34 @@ class Variation(models.Model):
 
 	def __unicode__(self):
 		return self.title
+
+class Rating(models.Model):
+	product = models.ForeignKey(Product)
+	rates = models.DecimalField(max_digits=50, decimal_places=2)
+	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+	active = models.BooleanField(default=True)
+
+	def __unicode__(self):
+		return str(self.rates)
+
+# def product_defaults(sender, instance, created, *args, **kwargs):
+# 	if instance.update_defaults:
+# 		categories = instance.category.all()
+# 		print categories
+# 		for cat in categories:
+# 			print cat.id
+# 			if cat.title == "Shirts":
+# 				small_size = Variation.objects.get_or_create(product=instance, 
+# 											category='size', 
+# 											title='Small')
+# 				medium_size = Variation.objects.get_or_create(product=instance, 
+# 											category='size', 
+# 											title='Medium')
+# 				large_size = Variation.objects.get_or_create(product=instance, 
+# 											category='size', 
+# 											title='Large')
+# 		instance.update_defaults = False
+# 		instance.save()
+# 	#print args, kwargs
+
+# post_save.connect(product_defaults, sender=Product)

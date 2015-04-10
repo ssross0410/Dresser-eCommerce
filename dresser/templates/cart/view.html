@@ -38,7 +38,9 @@
 </table>
 
 <br/>
-<a href='{% url "checkout" %}'>Checkout</a>
+<a href="{% url 'checkout' %}" class="btn btn-primary" role="button" aria-expanded="false">Checkout</a>
+<p> or </p>
+<a href="{% url 'home' %}" class="btn btn-success" role="button" aria-expanded="false">Keep Shopping</a>
 {% endif %}
 </div>
 {% endblock %}

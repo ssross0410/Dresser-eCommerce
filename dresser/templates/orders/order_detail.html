@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<!-- 
+<div class='row'>
+	<div class='col-sm-4'>
+
+	
+	</div>
+
+</div> -->
+
+<div class="row">
+	  <div class="col-sm-4 col-md-4">
+	    <div class="thumbnail">
+	    	
+	      <div class="caption">
+	      	<h4>Order Date: {{ order.timestamp }}
+	        <h4>Order ID: {{ order }}</h4>
+	        <h4>Sub_Total: {{ order.sub_total }}</h4>
+			<h4>Tax_Total: {{ order.tax_total }}</h4>
+			<h4>Final_Total: {{ order.final_total }}</h4>
+			<h4>Status: {{ order.status }}</h4>
+	       
+	      </div>
+	    </div>
+</div>
+
+
+
+{% endblock %}

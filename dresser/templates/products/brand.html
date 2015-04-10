@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+
+{% load staticfiles %}
+
+{% block head_title %}
+Products || 
+{% endblock %}
+
+{% block styles %}
+.jumbotron {
+	/*color: red;*/
+}
+{% endblock %}
+
+
+{# Comments here #}
+
+
+{% block content %}
+
+
+<div class='row'>
+	{% for product in products %}
+			<div class='col-sm-3'>
+
+
+
+				<div class="thumbnail">
+						{% if product.productimage_set.all %}
+
+								{% for item in product.productimage_set.all %}
+
+								{% if item.featured %}
+								<div style="width:200px;margin:0 auto;">
+
+									<a href='{{ product.get_absolute_url }}'>
+										<div class='background_img_thumb' style="height:150px;background-image: url('{{ MEDIA_URL }}{{ item.image }}');"></div>
+									</a>
+								</div>
+
+								{% endif %}
+								 
+								{% endfor %}
+
+						{% else %}
+						<div style="width:200px;margin:0 auto;">
+
+									<a href='{{ product.get_absolute_url }}'>
+										<div class='background_img_thumb' style="height:150px;"></div>
+									</a>
+						</div>
+						{% endif %}
+
+						<div class="caption">
+						<a href='{{ product.get_absolute_url }}'> 
+						<h4 style="text-align: center">{{ product.category }}</h4></a>
+						<h5 style="text-align: center">{{ product.brand }}</h5>
+						<h5 style="text-align: center">Price: ${{ product.sale_price }}</h5>
+						<!-- <p>{{ product.description|truncatewords:15}}</p> -->
+						<!-- <p>{{ product.description }}</p> -->
+						<p style="text-align: center"><a href="{{ product.get_absolute_url }}" class="btn btn-primary" role="button">View</a>
+						</div>
+			   	 </div>
+
+
+			</div>
+
+	{% cycle "" "" "" "</div><br/><hr/><div class='row'>" %}
+	{% endfor %}
+</div>
+
+{% endblock %}

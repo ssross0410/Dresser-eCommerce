@@ -25,6 +25,21 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 
+DEFAULT_FROM_EMAIL = "Dresser <sushen410@gmail.com>"
+
+EMAIL_HOST = "smtp.gmail.com" #"smtp.sendgrid.net"
+EMAIL_HOST_USER = "sushen410@gmail.com"
+EMAIL_HOST_PASSWORD = "Ross910410"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+if DEBUG:
+    SITE_URL = "http://127.0.0.1:8000"
+
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -38,6 +53,8 @@ INSTALLED_APPS = (
     'products',
     'carts',
     'orders',
+    'accounts',
+    'localflavor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -80,7 +97,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'US/Pacific'
+TIME_ZONE = 'US/Eastern'
 
 USE_I18N = True
 
@@ -120,3 +137,7 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
+
+STRIPE_SECRET_KEY = "sk_test_h3QFtqXfEl3HGxm2LD4GaSEE"
+
+STRIPE_PUBLISHABLE_KEY = "pk_test_VEJihj1pZSlglf3oRzbXjVDs"

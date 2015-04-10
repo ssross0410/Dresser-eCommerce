@@ -1,5 +1,5 @@
 <!-- Static navbar -->
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{% url 'home' %}">CFE eCommerce</a>
+          <a class="navbar-brand" href="{% url 'home' %}">Dresser</a>
         </div>
         <div class="navbar-collapse collapse">
 
@@ -19,11 +19,53 @@
           <button type="submit" class="btn btn-default">Submit</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
-          <li><a href="{% url 'products' %}">Products</a></li>
+
+            <li><a href='{% url "sales" %}'>Sales</a></li>
+
+            <li class="dropdown">
+                <a href="{% url 'products' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Brands<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href='{% url "zara" %}'>Zara</a></li>
+                  <li><a href='{% url "nike" %}'>Nike</a></li>
+                  <li><a href='{% url "jcrew" %}'>J-Crew</a></li>
+                  <li><a href='{% url "allsaints" %}'>All Saints</a></li>
+                  <li><a href='{% url "h_m" %}'>H&M</a></li>
+                  <li><a href='{% url "northface" %}'>North Face</a></li>
+                  <li><a href='{% url "topshop" %}'>Top Shop</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="{% url 'products' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categorys<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href='{% url "products" %}'>All Products</a></li>
+                  <li><a href='{% url "shirts_category" %}'>Shirts</a></li>
+                  <li><a href='{% url "tees_category" %}'>T-shirts</a></li>
+                  <li><a href='{% url "jeans_category" %}'>Jeans</a></li>
+                  <li><a href='{% url "hoodies_category" %}'>Hoodies</a></li>
+                  <li><a href='{% url "jackets_category" %}'>Jackets</a></li>
+                  <li><a href='{% url "suits_category" %}'>Suits</a></li>
+                  <li><a href='{% url "shoes_category" %}'>Shoes</a></li>
+                </ul>
+            </li>
+
             <li><a href="{% url 'cart' %}">Cart <span class="badge">{% if not request.session.items_total %} 0 {% else %} {{ request.session.items_total }} {% endif%}</span></a></li>
-            {% if user.is_authenticated %}
-            <li><a href="#">Account</a></li>
-            {% endif %}
+            <li class="dropdown">
+              {% if user.is_authenticated %}
+              <!-- <li><a href="#">Account</a></li>
+              <li><a href='{% url "auth_logout" %}'>Logout</a></li> -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ user }}<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <!-- <li><a href='#'>Profile</a></li> -->
+                  <li><a href='{% url "my_profile" %}'>Profile</a></li>
+                  <li><a href='{% url "user_orders" %}'>Order History</a></li>
+                  <li><a href='{% url "auth_logout" %}'>Logout</a></li>
+                </ul>
+              {% else %}
+              <li><a href="{% url 'auth_login' %}">Login</a></li>
+              <li><a href="{% url 'auth_register' %}">Sign Up</a></li>
+              {% endif %}
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

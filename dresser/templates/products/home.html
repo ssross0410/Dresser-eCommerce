@@ -52,7 +52,7 @@ Welcome to
 
 							{% if item.featured %}
 							<div style="
-							width:200px;
+							width:280px;
 							height:200px;margin:0 auto;">
 
 								<a href='{{ product.get_absolute_url }}'>
@@ -71,9 +71,11 @@ Welcome to
 					{% endif %}
 
 					<div class="caption">
-					<a href='{{ product.get_absolute_url }}'> <h3>{{ product.title }}</h3></a>
+					<a href='{{ product.get_absolute_url }}'> 
+						<h4 style="text-align: center">{{ product.category }}</h4></a>
+						<h5 style="text-align: center">Price: ${{ product.sale_price }}</h5>
 					<p>{{ product.description|truncatewords:15}}</p>
-					<p><a href="{{ product.get_absolute_url }}" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+					<p style="text-align: center"><a href="{{ product.get_absolute_url }}" class="btn btn-primary" role="button">View</a>
 					</div>
 		   	 </div>
 

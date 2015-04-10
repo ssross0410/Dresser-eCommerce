@@ -10,10 +10,11 @@ from .models import Cart, CartItem
 def view(request):
 	try:
 		the_id = request.session['cart_id']
+		cart = Cart.objects.get(id=the_id)
 	except:
 		the_id = None
+
 	if the_id:
-		cart = Cart.objects.get(id=the_id)
 		new_total = 0.00
 		for item in cart.cartitem_set.all():
 			line_total = float(item.product.price) * item.quantity
@@ -44,7 +45,6 @@ def remove_from_cart(request, id):
 	#send "success message"
 	return HttpResponseRedirect(reverse("cart"))
 		
-
 
 
 def add_to_cart(request, slug):

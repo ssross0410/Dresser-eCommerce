@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class='row'>
+	<div class='col-sm-4'>
+
+		<h1>{{ user }}'s order history</h1>
+		</hr>
+	
+	</div>
+
+</div>
+
+<div class="row">
+	{% for order in user.order_set.all %}
+	  <div class="col-sm-4 col-md-4">
+	    <div class="thumbnail">
+	    	
+	      <div class="caption">
+	      	<h4>Order Date: {{ order.timestamp }}
+			<h4>Final_Total: {{ order.final_total }}</h4>
+			<h4>Status: {{ order.status }}</h4>
+	        <p><a href='{% url "order_detail" order.id %}' class="btn btn-info" role="button">View Details</a>
+	      </div>
+	    </div>
+	  </div>
+	{% endfor %}
+</div>
+
+
+
+{% endblock %}

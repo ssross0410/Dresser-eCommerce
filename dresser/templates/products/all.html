@@ -25,7 +25,7 @@ Products ||
 <div class='row'>
 
 {% for product in products %}
-		<div class='col-sm-2'>
+		<div class='col-sm-3'>
 
 
 
@@ -35,39 +35,41 @@ Products ||
 							{% for item in product.productimage_set.all %}
 
 							{% if item.featured %}
-							<div style="width:100px;margin:0 auto;">
+							<div style="width:200px;margin:0 auto;">
 
 								<a href='{{ product.get_absolute_url }}'>
-									<div class='background_img_thumb' style="height:100px;background-image: url('{{ MEDIA_URL }}{{ item.image }}');"></div>
+									<div class='background_img_thumb' style="height:150px;background-image: url('{{ MEDIA_URL }}{{ item.image }}');"></div>
 								</a>
 							</div>
-							<!-- <img class='img-responsive' src="{{ MEDIA_URL }}{{ item.image }}" /> -->
+
 							{% endif %}
 							 
-
-
 							{% endfor %}
 
 					{% else %}
-					<div style="width:100px;margin:0 auto;">
+					<div style="width:200px;margin:0 auto;">
 
 								<a href='{{ product.get_absolute_url }}'>
-									<div class='background_img_thumb' style="height:100px;"></div>
+									<div class='background_img_thumb' style="height:150px;"></div>
 								</a>
-							</div>
+					</div>
 					{% endif %}
 
 					<div class="caption">
-					<a href='{{ product.get_absolute_url }}'> <h3>{{ product.title }}</h3></a>
-					<p>{{ product.description|truncatewords:15}}</p>
-					<p><a href="{{ product.get_absolute_url }}" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+					<a href='{{ product.get_absolute_url }}'> 
+					<h4 style="text-align: center">{{ product.category }}</h4></a>
+					<h5 style="text-align: center">{{ product.brand }}</h5>
+					<h5 style="text-align: center">Price: ${{ product.sale_price }}</h5></a>
+					<!-- <p>{{ product.description|truncatewords:15}}</p> -->
+					<!-- <p>{{ product.description }}</p> -->
+					<p style="text-align: center"><a href="{{ product.get_absolute_url }}" class="btn btn-primary" role="button">View</a>
 					</div>
 		   	 </div>
 
 
 		</div>
 
-{% cycle "" "" "" "" "" "</div><br/><hr/><div class='row'>" %}
+{% cycle "" "" "" "</div><br/><hr/><div class='row'>" %}
 {% endfor %}
 
 </div>
